@@ -1,0 +1,15 @@
+C:\Users\josej\camuslove_josesolano_juanbasto\bin\Debug\net9.0\campuslove.exe
+C:\Users\josej\camuslove_josesolano_juanbasto\bin\Debug\net9.0\campuslove.deps.json
+C:\Users\josej\camuslove_josesolano_juanbasto\bin\Debug\net9.0\campuslove.runtimeconfig.json
+C:\Users\josej\camuslove_josesolano_juanbasto\bin\Debug\net9.0\campuslove.dll
+C:\Users\josej\camuslove_josesolano_juanbasto\bin\Debug\net9.0\campuslove.pdb
+C:\Users\josej\camuslove_josesolano_juanbasto\obj\Debug\net9.0\campuslove.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\josej\camuslove_josesolano_juanbasto\obj\Debug\net9.0\campuslove.AssemblyInfoInputs.cache
+C:\Users\josej\camuslove_josesolano_juanbasto\obj\Debug\net9.0\campuslove.AssemblyInfo.cs
+C:\Users\josej\camuslove_josesolano_juanbasto\obj\Debug\net9.0\campuslove.csproj.CoreCompileInputs.cache
+C:\Users\josej\camuslove_josesolano_juanbasto\obj\Debug\net9.0\campuslove.sourcelink.json
+C:\Users\josej\camuslove_josesolano_juanbasto\obj\Debug\net9.0\campuslove.dll
+C:\Users\josej\camuslove_josesolano_juanbasto\obj\Debug\net9.0\refint\campuslove.dll
+C:\Users\josej\camuslove_josesolano_juanbasto\obj\Debug\net9.0\campuslove.pdb
+C:\Users\josej\camuslove_josesolano_juanbasto\obj\Debug\net9.0\campuslove.genruntimeconfig.cache
+C:\Users\josej\camuslove_josesolano_juanbasto\obj\Debug\net9.0\ref\campuslove.dll
