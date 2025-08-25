@@ -1,0 +1,17 @@
+CREATE TABLE Personas (
+    Id INT PRIMARY KEY,
+    Nombre VARCHAR(50),
+    Edad INT,
+    Genero CHAR(1),
+    Carrera VARCHAR(100),
+    Intereses VARCHAR(200),
+    Frase VARCHAR(300)
+);
+
+INSERT INTO Personas (Id, Nombre, Edad, Genero, Carrera, Intereses, Frase) VALUES
+(1, 'Maria', 22, 'F', 'Ingeneria de Sistemas', 'Videojuegos, Musica', 'Buscando bugs en corazones 💻❤️'),
+(2, 'Juan', 24, 'M', 'Diseño Grafico', 'Arte, Cine', 'Un match y te diseño el futuro 🎨'),
+(3, 'Laura', 21, 'F', 'Psicologia', 'Lectura, Cafe', 'Te escucho con el corazón ☕📚'),
+(4, 'Carlos', 23, 'M', 'Medicina', 'Deportes, Series', 'El mejor remedio: una buena cita 🩺🍿'),
+(5, 'Andrea', 22, 'F', 'Derecho', 'Debates, Viajes', 'Argumenta tu amor 💼✈️'),
+(6, 'Luis', 25, 'M', 'Administración', 'Finanzas, Ajedrez', 'Invertir en amor, la mejor decisión 💰♟️');
