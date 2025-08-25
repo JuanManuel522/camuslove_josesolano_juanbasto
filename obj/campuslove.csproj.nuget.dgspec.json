@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/camper/campuslove/camuslove_josesolano_juanbasto/campuslove.csproj": {}
+    "C:\\Users\\josej\\camuslove_josesolano_juanbasto\\campuslove.csproj": {}
   },
   "projects": {
-    "/home/camper/campuslove/camuslove_josesolano_juanbasto/campuslove.csproj": {
+    "C:\\Users\\josej\\camuslove_josesolano_juanbasto\\campuslove.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/camper/campuslove/camuslove_josesolano_juanbasto/campuslove.csproj",
+        "projectUniqueName": "C:\\Users\\josej\\camuslove_josesolano_juanbasto\\campuslove.csproj",
         "projectName": "campuslove",
-        "projectPath": "/home/camper/campuslove/camuslove_josesolano_juanbasto/campuslove.csproj",
-        "packagesPath": "/home/camper/.nuget/packages/",
-        "outputPath": "/home/camper/campuslove/camuslove_josesolano_juanbasto/obj/",
+        "projectPath": "C:\\Users\\josej\\camuslove_josesolano_juanbasto\\campuslove.csproj",
+        "packagesPath": "C:\\Users\\josej\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\josej\\camuslove_josesolano_juanbasto\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/camper/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\josej\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -38,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -59,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
