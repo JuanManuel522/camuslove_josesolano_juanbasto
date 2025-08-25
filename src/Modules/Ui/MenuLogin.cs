@@ -140,8 +140,8 @@ namespace Modules.Ui
                     Console.ReadKey();
 
                     // Aquí lo enviamos al Menú Principal que hizo tu amigo
-                   // MenuPrincipal menuPrincipal = new MenuPrincipal();
-                    // menuPrincipal.MostrarMenuPrincipal();
+                    MenuPrincipal menuPrincipal = new MenuPrincipal();
+                    menuPrincipal.MostrarMenuPrincipal();
 
                     return; // Salimos porque ya entró al sistema
                 }
