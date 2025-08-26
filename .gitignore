@@ -1,0 +1,56 @@
+# Archivos de compilación
+bin/
+obj/
+Debug/
+Release/
+[Bb]uild/
+[Bb]uilds/
+
+# Archivos de usuario de Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Archivos temporales
+*.cache
+*.log
+*.tmp
+*.vspscc
+*.vssscc
+
+# Configuración de VS Code
+.vscode/
+.vs/
+
+# Archivos de dependencias
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Archivos generados por MSBuild
+*.GeneratedMSBuildEditorConfig.editorconfig
+
+# Archivos de paquetes NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+*.dll
+*.exe
+
+# Archivos de cobertura de pruebas
+*.coverage
+*.coveragexml
+
+# Archivos de Resharper / Rider
+_ReSharper*/
+*.DotSettings.user
+
+# Archivos de publicación
+*.publishsettings
+*.pubxml
+*.pubxml.user
+
+# Archivos de migraciones
+migrations/
