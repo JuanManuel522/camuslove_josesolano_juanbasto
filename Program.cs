@@ -7,16 +7,15 @@ namespace CampusLove
     {
         static void Main(string[] args)
         {
-            // Configurar colores de la consola
+            // Cambio el color de la consola para hacer más bonito el título
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("==============================================");
             Console.WriteLine("     Bienvenido a Campus Love 💕 (Beta 1.0)   ");
             Console.WriteLine("==============================================");
-            Console.ResetColor();
-            // Ejecutamos el menú de login directamente
-            // Aquí el usuario podrá iniciar sesión, registrarse o salir
-            MenuLogin.MostrarMenu(null);
-
+            Console.ResetColor(); // Regreso el color normal
+            
+            // Llamo directamente al menú de login para empezar el flujo
+            MenuLogin.MostrarMenu();
         }
     }
 }

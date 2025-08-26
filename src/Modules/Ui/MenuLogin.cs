@@ -1,30 +1,32 @@
 using System;
-using System.Collections.Generic;
+using Modules.Profiles.Domain.Entities;
+using Modules.Profiles.Infrastructure;
+using Modules.Profiles.Domain.Interfaces;
 
 namespace Modules.Ui
 {
     public static class MenuLogin
     {
-        // Lista en memoria que hace de "base de datos" para guardar los usuarios registrados
-        private static List<Usuario> usuarios = new List<Usuario>();
-
-        // Aquí se guarda el usuario que inicia sesión correctamente
+        // Creo una instancia del repositorio para manejar los usuarios
+        private static IUsuarioRepository _repository = new UsuarioRepository();
+        
+        // Variable estática para guardar el usuario que está logueado actualmente
         public static Usuario? UsuarioActual { get; private set; }
 
-        // Método principal del menú de login (aquí empieza todo este módulo)
-        public static void MostrarMenu(Usuario? usuarioActual)
+        // Método principal que muestra el menú de login
+        public static void MostrarMenu()
         {
             int opcion = 0;
 
-            // Usamos un bucle para que el menú se repita hasta que el usuario decida salir
+            // Bucle principal del menú - se repite hasta que el usuario elija salir
             do
             {
-                Console.Clear(); // Limpia la pantalla para que el menú se vea limpio
+                Console.Clear(); // Limpio la pantalla para que se vea ordenado
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("===== Bienvenido a Campus Love ❤️ =====");
                 Console.ResetColor();
 
-                // Opciones del menú login
+                // Muestro las opciones disponibles
                 Console.WriteLine("1. Iniciar Sesión");
                 Console.WriteLine("2. Registrarse");
                 Console.WriteLine("3. Salir");
@@ -33,26 +35,23 @@ namespace Modules.Ui
                 Console.Write("Selecciona una opción: ");
                 Console.ResetColor();
 
-                // Validamos que la opción ingresada sea un número
+                // Valido que ingrese un número válido
                 if (int.TryParse(Console.ReadLine(), out opcion))
                 {
                     switch (opcion)
                     {
-                        case 1: // Opción para iniciar sesión
-                            IniciarSesion();
+                        case 1:
+                            IniciarSesion(); // Llamo al método de login
                             break;
-
-                        case 2: // Opción para registrarse
-                            Registrarse();
+                        case 2:
+                            Registrarse(); // Llamo al método de registro
                             break;
-
-                        case 3: // Opción para salir
+                        case 3:
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("¡Gracias por usar Campus Love! Nos vemos pronto 😉");
                             Console.ResetColor();
                             break;
-
-                        default: // Si pone un número fuera del menú
+                        default:
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Opción inválida, intenta de nuevo...");
                             Console.ResetColor();
@@ -62,14 +61,14 @@ namespace Modules.Ui
                 }
                 else
                 {
-                    // Si el usuario escribe algo que no es un número
+                    // Si no ingresó un número
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Debes ingresar un número válido...");
                     Console.ResetColor();
                     Console.ReadKey();
                 }
 
-            } while (opcion != 3); // El bucle se repite hasta que elija salir
+            } while (opcion != 3); // Continúo hasta que elija salir
         }
 
         // Método para registrar un nuevo usuario
@@ -80,31 +79,41 @@ namespace Modules.Ui
             Console.WriteLine("===== Registro de Usuario =====");
             Console.ResetColor();
 
-            // Pedimos los datos básicos del nuevo usuario
-            Console.Write("Ingresa tu nombre de usuario: ");
+            // Pido el nombre de usuario y verifico que no exista
+            Console.Write("Nombre de usuario: ");
             string nombre = Console.ReadLine() ?? "";
 
-            Console.Write("Ingresa tu contraseña: ");
-            string contrasena = Console.ReadLine() ?? "";
-
-            // Recorremos la lista para verificar que ese nombre de usuario no esté repetido
-            foreach (var user in usuarios)
+            if (_repository.GetUsuarioByNombre(nombre) != null)
             {
-                if (user.Nombre == nombre)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("⚠️ Ese nombre de usuario ya está en uso. Intenta con otro.");
-                    Console.ResetColor();
-                    Console.ReadKey();
-                    return; // Salimos del método porque no se puede registrar
-                }
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("⚠️ Ese nombre de usuario ya está en uso.");
+                Console.ResetColor();
+                Console.ReadKey();
+                return; // Salgo si ya existe
             }
 
-            // Creamos un nuevo objeto Usuario con los datos ingresados
-            Usuario nuevo = new Usuario(nombre, contrasena);
+            // Pido todos los datos del perfil
+            Console.Write("Contraseña: ");
+            string contrasena = Console.ReadLine() ?? "";
 
-            // Lo agregamos a la lista (simulando guardar en una base de datos)
-            usuarios.Add(nuevo);
+            Console.Write("Edad: ");
+            int edad = int.Parse(Console.ReadLine() ?? "18");
+
+            Console.Write("Género (M/F): ");
+            string genero = Console.ReadLine() ?? "";
+
+            Console.Write("Carrera: ");
+            string carrera = Console.ReadLine() ?? "";
+
+            Console.Write("Intereses: ");
+            string intereses = Console.ReadLine() ?? "";
+
+            Console.Write("Frase de perfil: ");
+            string frase = Console.ReadLine() ?? "";
+
+            // Creo el nuevo usuario con todos los datos
+            Usuario nuevo = new Usuario(0, nombre, contrasena, edad, genero, carrera, intereses, frase);
+            _repository.AddUsuario(nuevo); // Lo guardo en el repositorio
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("🎉 Registro exitoso. Ahora puedes iniciar sesión.");
@@ -120,52 +129,37 @@ namespace Modules.Ui
             Console.WriteLine("===== Iniciar Sesión =====");
             Console.ResetColor();
 
-            // Pedimos las credenciales
+            // Pido las credenciales
             Console.Write("Usuario: ");
             string nombre = Console.ReadLine() ?? "";
 
             Console.Write("Contraseña: ");
             string contrasena = Console.ReadLine() ?? "";
 
-            // Recorremos la lista buscando si el usuario existe y la contraseña coincide
-            foreach (var user in usuarios)
+            // Busco el usuario en el repositorio
+            var usuario = _repository.GetUsuarioByNombre(nombre);
+            
+            // Verifico que exista y la contraseña sea correcta
+            if (usuario != null && usuario.Contrasena == contrasena)
             {
-                if (user.Nombre == nombre && user.Contrasena == contrasena)
-                {
-                    UsuarioActual = user; // Guardamos al usuario como "logueado"
+                UsuarioActual = usuario; // Guardo el usuario como logueado
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"✅ Bienvenido {UsuarioActual.Nombre}, iniciando tu sesión...");
-                    Console.ResetColor();
-                    Console.ReadKey();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"✅ Bienvenido {UsuarioActual.Nombre}!");
+                Console.ResetColor();
+                Console.ReadKey();
 
-                    // Aquí lo enviamos al Menú Principal que hizo tu amigo
-                   // MenuPrincipal menuPrincipal = new MenuPrincipal();
-                    // menuPrincipal.MostrarMenuPrincipal();
-
-                    return; // Salimos porque ya entró al sistema
-                }
+                // Voy al menú principal pasándole el repositorio
+                MenuPrincipal menuPrincipal = new MenuPrincipal(_repository);
+                menuPrincipal.MostrarMenuPrincipal();
+                return;
             }
 
-            // Si no encontró coincidencia
+            // Si las credenciales no son válidas
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("❌ Usuario o contraseña incorrectos. Intenta de nuevo.");
+            Console.WriteLine("❌ Usuario o contraseña incorrectos.");
             Console.ResetColor();
             Console.ReadKey();
-        }
-    }
-
-    // Clase Usuario (molde básico para cada persona que se registra en el sistema)
-    public class Usuario
-    {
-        public string Nombre { get; set; } // Nombre de usuario
-        public string Contrasena { get; set; } // Contraseña
-
-        // Constructor para inicializar un usuario nuevo con nombre y contraseña
-        public Usuario(string nombre, string contrasena)
-        {
-            Nombre = nombre;
-            Contrasena = contrasena;
         }
     }
 }

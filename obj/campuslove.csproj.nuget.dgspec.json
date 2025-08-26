@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\josej\\camuslove_josesolano_juanbasto\\campuslove.csproj": {}
+    "C:\\Users\\basto\\Documents\\ejercicios\\camuslove_josesolano_juanbasto\\campuslove.csproj": {}
   },
   "projects": {
-    "C:\\Users\\josej\\camuslove_josesolano_juanbasto\\campuslove.csproj": {
+    "C:\\Users\\basto\\Documents\\ejercicios\\camuslove_josesolano_juanbasto\\campuslove.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\josej\\camuslove_josesolano_juanbasto\\campuslove.csproj",
+        "projectUniqueName": "C:\\Users\\basto\\Documents\\ejercicios\\camuslove_josesolano_juanbasto\\campuslove.csproj",
         "projectName": "campuslove",
-        "projectPath": "C:\\Users\\josej\\camuslove_josesolano_juanbasto\\campuslove.csproj",
-        "packagesPath": "C:\\Users\\josej\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\josej\\camuslove_josesolano_juanbasto\\obj\\",
+        "projectPath": "C:\\Users\\basto\\Documents\\ejercicios\\camuslove_josesolano_juanbasto\\campuslove.csproj",
+        "packagesPath": "C:\\Users\\basto\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\basto\\Documents\\ejercicios\\camuslove_josesolano_juanbasto\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\josej\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\basto\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -59,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

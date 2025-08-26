@@ -1,42 +1,93 @@
 using Modules.Profiles.Domain.Entities;
+using Modules.Profiles.Domain.Interfaces;
 
 namespace Modules.Profiles.Application.Services
 {
+    // Mi servicio que maneja toda la lógica de likes y matches
+    // Lo separé en su propio servicio para mantener el código organizado
     public class MatchService
     {
-        // Diccionario: Usuario -> lista de usuarios a los que dio like
-        private readonly Dictionary<int, List<int>> _likes = new();
+        private readonly IUsuarioRepository _repository;
 
+        // Recibo el repositorio por inyección para poder acceder a los usuarios
+        public MatchService(IUsuarioRepository repository)
+        {
+            _repository = repository;
+        }
+
+        // Método principal para dar like a otro usuario
         public void DarLike(Usuario from, Usuario to)
         {
-            if (from.LikesDisponibles <= 0) return;
+            // Primero valido que el usuario tenga likes disponibles
+            if (from.LikesDisponibles <= 0) 
+            {
+                Console.WriteLine("❌ No tienes likes disponibles.");
+                return;
+            }
 
-            if (!_likes.ContainsKey(from.Id))
-                _likes[from.Id] = new List<int>();
+            // Verifico que no haya dado like ya a esta persona (evitar duplicados)
+            if (from.LikesDados.Contains(to.Id))
+            {
+                Console.WriteLine("❌ Ya diste like a este perfil.");
+                return;
+            }
 
-            _likes[from.Id].Add(to.Id);
-            from.LikesDisponibles--;
-            to.LikesRecibidos++;
+            // Proceso el like: actualizo las listas y contadores
+            from.LikesDados.Add(to.Id); // Agrego el ID del usuario al que dió like
+            from.LikesDisponibles--; // Le resto un like disponible
+            to.LikesRecibidos.Add(from.Id); // Al otro usuario le agrego quien le dió like
+            to.ContadorLikesRecibidos++; // Incremento su contador de likes recibidos
+
+            // Guardo los cambios en el repositorio
+            _repository.UpdateUsuario(from);
+            _repository.UpdateUsuario(to);
+
+            // Verifico si se formó un match (ambos se dieron like mutuamente)
+            if (EsMatch(from.Id, to.Id))
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine($"🎉 ¡MATCH! Tú y {to.Nombre} se han gustado mutuamente!");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.WriteLine("💖 Like enviado!");
+            }
         }
 
+        // Método que verifica si dos usuarios hicieron match
         public bool EsMatch(int userId, int otherId)
         {
-            return _likes.ContainsKey(userId) && _likes[userId].Contains(otherId)
-                && _likes.ContainsKey(otherId) && _likes[otherId].Contains(userId);
+            var user = _repository.GetUsuarioById(userId);
+            var other = _repository.GetUsuarioById(otherId);
+            
+            // Es match si ambos usuarios se dieron like el uno al otro
+            return user != null && other != null &&
+                   user.LikesDados.Contains(otherId) &&
+                   other.LikesDados.Contains(userId);
         }
 
-        public List<(Usuario, Usuario)> ObtenerMatches(List<Usuario> usuarios)
+        // Método que devuelve todos los matches de un usuario
+        public List<Usuario> GetMatches(int usuarioId)
         {
-            var matches = new List<(Usuario, Usuario)>();
-            foreach (var u in usuarios)
+            var usuario = _repository.GetUsuarioById(usuarioId);
+            if (usuario == null) return new List<Usuario>(); // Si no existe el usuario, devuelvo lista vacía
+
+            var matches = new List<Usuario>();
+            var todosUsuarios = _repository.GetAllUsuarios();
+
+            // Reviso cada usuario al que le dió like
+            foreach (var idLiked in usuario.LikesDados)
             {
-                foreach (var v in usuarios)
+                var otro = todosUsuarios.FirstOrDefault(u => u.Id == idLiked);
+                // Si ese usuario también le dió like de vuelta, es un match
+                if (otro != null && otro.LikesDados.Contains(usuario.Id))
                 {
-                    if (u.Id != v.Id && EsMatch(u.Id, v.Id))
-                        matches.Add((u, v));
+                    matches.Add(otro);
                 }
             }
-            return matches.Distinct().ToList();
+
+            return matches;
         }
     }
 }
