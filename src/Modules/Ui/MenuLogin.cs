@@ -149,10 +149,19 @@ namespace Modules.Ui
                 Console.ResetColor();
                 Console.ReadKey();
 
+<<<<<<< HEAD
                 // Voy al menú principal pasándole el repositorio
                 MenuPrincipal menuPrincipal = new MenuPrincipal(_repository);
                 menuPrincipal.MostrarMenuPrincipal();
                 return;
+=======
+                    // Aquí lo enviamos al Menú Principal que hizo tu amigo
+                    MenuPrincipal menuPrincipal = new MenuPrincipal();
+                    menuPrincipal.MostrarMenuPrincipal();
+
+                    return; // Salimos porque ya entró al sistema
+                }
+>>>>>>> b32af503e0f27beda6886759544291c37fe823bc
             }
 
             // Si las credenciales no son válidas
